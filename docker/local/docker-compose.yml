@@ -1,0 +1,19 @@
+services:
+  backend:
+    build:
+      context: ../../
+      dockerfile: ../local/Dockerfile
+    container_name: local_backend
+    working_dir: /app
+    volumes:
+      - ../../app/:/app/app
+      - ../../migrations/:/app/migrations
+      - ../../.env/:/app/.env
+      - ../../logs:/app/logs  # Логи сохраняются в папке logs внутри репозитория
+    environment:
+      - DATABASE_URI=postgresql+psycopg2://gorod:123qwe@host.docker.internal:5432/example
+    deploy:
+      replicas: 1
+    ports:
+      - "8008:8008"
+    command: ["poetry", "run", "python", "app/run.py"]
