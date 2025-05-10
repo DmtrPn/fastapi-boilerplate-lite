@@ -1,16 +1,17 @@
 from abc import ABC
 from app.infrastructure.config import get_session
-from contextlib import contextmanager
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from contextlib import asynccontextmanager
 
 
 class BaseStorage(ABC):
     def __init__(self):
         self.__Session = get_session()
 
-    @contextmanager
-    def session_scope(self, read_only=False):
-        session: Session = self.__Session()
+    @asynccontextmanager
+    async def session_scope(self, read_only=False):
+        session: AsyncSession = self.__Session()
         try:
             if read_only:
                 session = self.__Session(
@@ -18,9 +19,9 @@ class BaseStorage(ABC):
                 )
             yield session
             if not read_only:
-                session.commit()
+                await session.commit()
         except Exception:
-            session.rollback()
+            await session.rollback()
             raise
         finally:
-            session.close()
+            await session.close()

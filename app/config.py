@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     PORT: int = 8008
     WORKERS: int = 1
     DATABASE_URI: str = ""
+    COOKIE_SECRET_KEY: str = "COOKIE_SECRET_KEY"
+    COOKIE_NAME: str = "example"
 
 
 settings = Settings()

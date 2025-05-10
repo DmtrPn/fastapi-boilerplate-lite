@@ -18,13 +18,13 @@ class ExampleDto:
 
 class IExampleService(ABC):
     @abstractmethod
-    def create(self, params: ExampleCreateParams) -> None:
+    async def create(self, params: ExampleCreateParams) -> None:
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, example_id: uuid.UUID) -> ExampleDto | None:
+    async def get(self, example_id: uuid.UUID) -> ExampleDto | None:
         raise NotImplementedError
 
     @abstractmethod
-    def get_or_fail(self, example_id: uuid.UUID) -> ExampleDto:
+    async def get_or_fail(self, example_id: uuid.UUID) -> ExampleDto:
         raise NotImplementedError

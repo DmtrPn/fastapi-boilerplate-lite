@@ -6,9 +6,9 @@ from app.domain.example_dto import ExampleCreateParams
 
 class IExampleStorage(ABC):
     @abstractmethod
-    def add(self, config: ExampleCreateParams) -> None:
+    async def add(self, config: ExampleCreateParams) -> None:
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id: uuid.UUID) -> ExampleModel | None:
+    async def get(self, id: uuid.UUID) -> ExampleModel | None:
         raise NotImplementedError

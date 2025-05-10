@@ -7,11 +7,11 @@ from typing import Optional
 class LockService(ILockService):
     storage: ILockStorage = LockStorage()
 
-    def lock(self, lock_id: str) -> Optional[str]:
-        return self.storage.lock(LockCreateParams(lock_id=lock_id))
+    async def lock(self, lock_id: str) -> Optional[str]:
+        return await self.storage.lock(LockCreateParams(lock_id=lock_id))
 
-    def is_lock(self, lock_id: str) -> bool:
-        return self.storage.is_lock(lock_id)
+    async def is_lock(self, lock_id: str) -> bool:
+        return await self.storage.is_lock(lock_id)
 
-    def remove(self, lock_id: str) -> None:
-        self.storage.remove(lock_id)
+    async def remove(self, lock_id: str) -> None:
+        await self.storage.remove(lock_id)
