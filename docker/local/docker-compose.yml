@@ -1,8 +1,8 @@
 services:
-  backend:
+  local_backend:
     build:
       context: ../../
-      dockerfile: ../local/Dockerfile
+      dockerfile: ./docker/local/Dockerfile
     container_name: local_backend
     working_dir: /app
     volumes:
@@ -11,7 +11,7 @@ services:
       - ../../.env/:/app/.env
       - ../../logs:/app/logs  # Логи сохраняются в папке logs внутри репозитория
     environment:
-      - DATABASE_URI=postgresql+psycopg2://gorod:123qwe@host.docker.internal:5432/example
+      - DATABASE_URI=postgresql+asyncpg://gorod:123qwe@host.docker.internal:5432/docmaker
     deploy:
       replicas: 1
     ports:
